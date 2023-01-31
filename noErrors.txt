@@ -1,8 +1,9 @@
 ,,
-    +,
-
-'a string"
++,::-
 # a comment
+'hello "world'
+Rules
 Schemes
-FactsRules
-::-
+Facts
+
+
