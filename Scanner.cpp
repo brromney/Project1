@@ -5,9 +5,9 @@
 #include "Scanner.h"
 bool loopLine = true;
 Token Scanner::scanToken() {
-    //if(input.empty()){
-    //    loopLine = false;
-    //}
+    if(input.empty()){
+        loopLine = false;
+    }
     type = ENDOFFILE;
     value = "EOF";
     line = currLine;
