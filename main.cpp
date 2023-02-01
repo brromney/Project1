@@ -4,7 +4,7 @@
 using namespace std;
 
 int main() {
-    ifstream infile(R"(C:\Users\blake\Documents\BYU\CS236\Project 1\emptyQuote.txt)");
+    ifstream infile(R"(C:\Users\blake\Documents\BYU\CS236\Project 1\noErrors.txt)");
     string fileString;
     string fileContent;
     if(!infile.is_open()){
@@ -18,11 +18,9 @@ int main() {
         cout << fileContent << endl;
         infile.close();
         Scanner s = Scanner(fileContent);
-        while(loopLine) {//maybe s.input. length maybe change loopline to eof checker
+        while(s) {
             Token t = s.scanToken();
             cout << t.typeName() << endl;
         }
-        loopLine = true;
-
     }
 }

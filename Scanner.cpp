@@ -5,115 +5,186 @@
 #include "Scanner.h"
 bool loopLine = true;
 Token Scanner::scanToken() {
-    if (input.empty()) {
+    if(input.empty()){
+        type = ENDOFFILE;
+        value = "EOF";
+        line = currLine;
+        input = input;
         loopLine = false;
     }
-    type = ENDOFFILE;
-    value = "EOF";
-    line = currLine;
-    input = input;
-    while (!input.empty()) {
+    while(!input.empty()) {
         while (isspace(input.front())) {
-            if (input.front() == '\n') {
+            if(input.front() == '\n'){
                 currLine++;
             }
             input = input.substr(1);
         }
-        /*if ((input.front() =='\n') || (input.front() =='\t') || (input.front() ==' ') || (input.empty())) {
+        if(input.empty()){
+            type = ENDOFFILE;
+            value = "EOF";
+            line = currLine;
+            input = input;
             loopLine = false;
-            break;
         }
-        else*/ if (input.front() == ',') {
+        else if (input.front() == ',') {
             type = COMMA;
             value = ",";
             line = currLine;
             input = input.substr(1);
-            if (input.empty()) { loopLine = false; }
-            break;
-        } else if (input.front() == '.') {
-            type = PERIOD;
+            if(input.empty()){loopLine = false;}
+            return Token(type, value, line);
+        }
+        else if (input.front() == '.') {
+            type =  PERIOD;
             value = ".";
             line = currLine;
             input = input.substr(1);
-            if (input.empty()) { loopLine = false; }
-            break;
-        } else if (input.front() == '?') {
+            if(input.empty()){loopLine = false;}
+            return Token(type, value, line);
+        }
+        else if (input.front() == '?') {
             type = Q_MARK;
             value = "?";
             line = currLine;
             input = input.substr(1);
-            if (input.empty()) { loopLine = false; }
-            break;
-        } else if (input.front() == '(') {
+            if(input.empty()){loopLine = false;}
+            return Token(type, value, line);
+        }
+        else if (input.front() == '(') {
             type = LEFT_PAREN;
             value = "(";
             line = currLine;
             input = input.substr(1);
-            if (input.empty()) { loopLine = false; }
-            break;
-        } else if (input.front() == ')') {
+            if(input.empty()){loopLine = false;}
+            return Token(type, value, line);
+        }
+        else if (input.front() == ')') {
             type = RIGHT_PAREN;
             value = ")";
             line = currLine;
             input = input.substr(1);
-            if (input.empty()) { loopLine = false; }
-            break;
-        } else if (input.front() == ':' && input[1] == '-') {
+            if(input.empty()){loopLine = false;}
+            return Token(type, value, line);
+        }
+        else if (input.front() == ':' && input[1] == '-') {
             type = COLON_DASH;
             value = ":-";
             line = currLine;
             input = input.substr(2);
-            if (input.empty()) { loopLine = false; }
-            break;
-        } else if (input.front() == ':') {
+            if(input.empty()){loopLine = false;}
+            return Token(type, value, line);
+        }
+        else if (input.front() == ':') {
             type = COLON;
             value = ":";
             line = currLine;
             input = input.substr(1);
-            if (input.empty()) { loopLine = false; }
-            break;
-        } else if (input.front() == '*') {
+            if(input.empty()){loopLine = false;}
+            return Token(type, value, line);
+        }
+        else if (input.front() == '*') {
             type = MULTIPLY;
             value = "*";
             line = currLine;
             input = input.substr(1);
-            if (input.empty()) { loopLine = false; }
-            break;
-        } else if (input.front() == '+') {
+            if(input.empty()){loopLine = false;}
+            return Token(type, value, line);
+        }
+        else if (input.front() == '+') {
             type = ADD;
             value = "+";
             line = currLine;
             input = input.substr(1);
-            if (input.empty()) { loopLine = false; }
-            break;
-        } else if (input.front() == 'S' && input[1] == 'c' && input[2] == 'h' && input[3] == 'e' && input[4] == 'm' &&
-                   input[5] == 'e' && input[6] == 's') {
-            type = SCHEMES;
-            value = "SCHEMES";
-            line = currLine;
-            input = input.substr(7);
-            if (input.empty()) { loopLine = false; }
-            break;
-        } else if (input.front() == 'F' && input[1] == 'a' && input[2] == 'c' && input[3] == 't' && input[4] == 's' &&
-                   (input[5] == ' ' || input[5] == ':' || input[5] == '\n')) {
-            type = FACTS;
-            value = "FACTS";
-            line = currLine;
-            input = input.substr(5);
-            if (input.empty()) { loopLine = false; }
-            break;
-        } else if (input.front() == 'Q' && input[1] == 'u' && input[2] == 'e' && input[3] == 'r' && input[4] == 'i' &&
-                   input[5] == 'e' && input[6] == 's') {
-            type = QUERIES;
-            value = "QUERIES";
-            line = currLine;
-            input = input.substr(7);
-            if (input.empty()) { loopLine = false; }
-            break;
-        } else if (input.front() == '#') {
-            int i = 0;//COMMENT
+            if(input.empty()){loopLine = false;}
+            return Token(type, value, line);
+        }
+        else if (((input.front() >= 'A') && (input.front() <= 'Z')) || ((input.front() >= 'a') && (input.front() <= 'z')) || (input.front() == '\'')){
+            if (input.front() == 'S' && input[1] == 'c' && input[2] == 'h' && input[3] == 'e' && input[4] == 'm' && input[5] == 'e' && input[6] == 's') {
+                type = SCHEMES;
+                value = "SCHEMES";
+                line = currLine;
+                input = input.substr(7);
+                if(input.empty()){loopLine = false;}
+                return Token(type, value, line);
+            }
+            else if (input.front() == 'F' && input[1] == 'a' && input[2] == 'c' && input[3] == 't' && input[4] == 's' && (input[5] == ' ' || input[5] == ':'|| input[5] == '\n')) {
+                type = FACTS;
+                value = "FACTS";
+                line = currLine;
+                input = input.substr(5);
+                if(input.empty()){loopLine = false;}
+                return Token(type, value, line);
+            }
+            else if (input.front() == 'Q' && input[1] == 'u' && input[2] == 'e' && input[3] == 'r' && input[4] == 'i' && input[5] == 'e' && input[6] == 's') {
+                type = QUERIES;
+                value = "QUERIES";
+                line = currLine;
+                input = input.substr(7);
+                if(input.empty()){loopLine = false;}
+                return Token(type, value, line);
+            }
+            else if (input.front() == 'R' && input[1] == 'u' && input[2] == 'l' && input[3] == 'e' && input[4] == 's') {
+                type = RULES;
+                value = "RULES";
+                line = currLine;
+                input = input.substr(5);
+                if(input.empty()){loopLine = false;}
+                return Token(type, value, line);
+            }
+            else if (input.front() == '\'') {
+                int i = 1;//STRING
+                string outString;
+                //outString = outString + '\'';
+                do {
+                    if(input.front() == '\n'){
+                        outString += "\\n";
+                        i++;
+                        input = input.substr(1);
+                        if(input.front() == '\000'){break;}
+                        continue;
+                    }
+                    outString += input.front();
+                    i++;
+                    input = input.substr(1);
+                    if(input.front() == '\000'){break;}
+                    if(input.front() == '\''){outString += input.front();}
+                } while (input.front() != '\'');
+                if(input.front() == '\''){input = input.substr(1);}
+                if(input.empty()){
+                    type = UNDEFINED;
+                    value = outString;
+                    line = currLine;
+                    input = input.substr(input.length());
+                    if(input.empty()){loopLine = false;}
+                    return Token(type, value, line);
+                }
+                type = STRING;
+                value = outString;
+                line = currLine;
+                if(input.empty()){loopLine = false;}
+                return Token(type, value, line);
+            }
+            else {
+                int i = 0;
+                string outID;
+                while((input[i] != ' ' ) && (input[i] != '\n' ) && (input[i] != '\t' )) {
+                    if (!isspace(input[i])) {
+                        outID += input[i];
+                        i++;
+                    }
+                }
+                type = ID;
+                value = outID;
+                line = currLine;
+                input = input.substr(i);
+                if(input.empty()){loopLine = false;}
+                return Token(type, value, line);
+            }
+        }
+        else if (input.front() == '#') {
+            int i = 0;
             string outString;
-            while (input[i] != '\n') {
+            while(input[i] != '\n'){
                 outString += input[i];
                 i++;
             }
@@ -121,65 +192,18 @@ Token Scanner::scanToken() {
             value = outString;
             line = currLine;
             input = input.substr(i);
-            if (input.empty()) { loopLine = false; }
-            break;
+            if(input.empty()){loopLine = false;}
+            return Token(type, value, line);
         }
-        else if (input.front() == '\'') {
-            int i = 1;//STRING
-            string outString;
-            outString = outString + '\'';
-            do {
-                outString += input[i];
-                i++;
-            } while (input[i] != '\'');
-
-            /*if(input.empty()){
-                type = UNDEFINED;
-                value = outString;
-                line = currLine;
-                input = input.substr(input.length());
-                if(input.empty()){loopLine = false;}
-                break;
-            }*/
-            type = STRING;
-            value = outString;
-            line = currLine;
-            input = input.substr(i);
-            if (input.empty()) { loopLine = false; }
-            break;
-        } else if ((input.front() != '\'')) {
-            int i = 0;
-            string outString;
-            while (input[i] != '\'') {
-                if (!isspace(input[i])) {
-                    outString += input[i];
-                    i++;
-                }
-            }
-            type = ID;
-            value = input;
-            line = currLine;
-            input = input.substr(input.length());
-            if (input.empty()) { loopLine = false; }
-            break;
-        }
-        /*else if (input.empty()) { //fixme
-            type = ENDOFFILE;
-            value = "EOF";
+        else {
+            type = UNDEFINED;
+            value = input.front();
             line = currLine;
             input = input.substr(1);
             if(input.empty()){loopLine = false;}
-            break;
-        }*/
-        /*else {
-            type = UNDEFINED;
-            value = input;
-            line = currLine;
-            input = input.substr(input.length());
-            if(input.empty()){loopLine = false;}
-            break;
-        }*/
-
-        return Token(type, value, line);
+            return Token(type, value, line);
+        }
     }
+    return Token(type,value, line);
 };
+

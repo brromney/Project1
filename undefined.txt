@@ -2,3 +2,4 @@ $
 &
 ^
 'string
+continues to the next line'

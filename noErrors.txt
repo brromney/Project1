@@ -2,8 +2,7 @@
 +,::-
 # a comment
 'hello "world'
-Rules
+
 Schemes
 Facts
-
-
+Rules
