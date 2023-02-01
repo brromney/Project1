@@ -3,9 +3,9 @@
 #include "Scanner.h"
 using namespace std;
 
-int main(/*int argc, char *argv[]*/) {
+int main(int argc, char *argv[]) {
     //bool loopLine;
-    ifstream infile(/*argv[1]*/"C:/Users/blake/Documents/BYU/CS236/Project 1/noErrors.txt");
+    ifstream infile(argv[1]/*"C:/Users/blake/Documents/BYU/CS236/Project 1/noErrors.txt"*/);
     string fileString;
     string fileContent;
     int tokenCounter = 0;

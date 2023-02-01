@@ -1,7 +1,6 @@
 //
 // Created by blake on 1/30/2023.
 //
-#pragma once
 #include "Scanner.h"
 
 

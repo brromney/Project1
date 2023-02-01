@@ -18,5 +18,6 @@ private:
 
 public:
     Scanner(const string &input) : input(input) {}
+    Scanner(){};
     Token scanToken();
 };
