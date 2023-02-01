@@ -98,7 +98,8 @@ Token Scanner::scanToken() {
             return Token(type, value, line);
         }
         else if (((input.front() >= 'A') && (input.front() <= 'Z')) || ((input.front() >= 'a') && (input.front() <= 'z')) || (input.front() == '\'')){
-            if (input.front() == 'S' && input[1] == 'c' && input[2] == 'h' && input[3] == 'e' && input[4] == 'm' && input[5] == 'e' && input[6] == 's') {
+            if (input.front() == 'S' && input[1] == 'c' && input[2] == 'h' && input[3] == 'e' && input[4] == 'm' && input[5] == 'e'
+                            && input[6] == 's' && (input[7] == ' ' || input[7] == ':'|| input[7] == '\n' || input[7] == '\t')) {
                 type = SCHEMES;
                 value = "Schemes";
                 line = currLine;
@@ -106,7 +107,8 @@ Token Scanner::scanToken() {
                 if(input.empty()){loopLine = false;}
                 return Token(type, value, line);
             }
-            else if (input.front() == 'F' && input[1] == 'a' && input[2] == 'c' && input[3] == 't' && input[4] == 's' && (input[5] == ' ' || input[5] == ':'|| input[5] == '\n')) {
+            else if (input.front() == 'F' && input[1] == 'a' && input[2] == 'c' && input[3] == 't' && input[4] == 's'
+                                && (input[5] == ' ' || input[5] == ':'|| input[5] == '\n' || input[5] == '\t')) {
                 type = FACTS;
                 value = "Facts";
                 line = currLine;
@@ -114,7 +116,8 @@ Token Scanner::scanToken() {
                 if(input.empty()){loopLine = false;}
                 return Token(type, value, line);
             }
-            else if (input.front() == 'Q' && input[1] == 'u' && input[2] == 'e' && input[3] == 'r' && input[4] == 'i' && input[5] == 'e' && input[6] == 's') {
+            else if (input.front() == 'Q' && input[1] == 'u' && input[2] == 'e' && input[3] == 'r' && input[4] == 'i' && input[5] == 'e'
+                                && input[6] == 's' && (input[7] == ' ' || input[7] == ':'|| input[7] == '\n' || input[7] == '\t')) {
                 type = QUERIES;
                 value = "Queries";
                 line = currLine;
@@ -122,7 +125,8 @@ Token Scanner::scanToken() {
                 if(input.empty()){loopLine = false;}
                 return Token(type, value, line);
             }
-            else if (input.front() == 'R' && input[1] == 'u' && input[2] == 'l' && input[3] == 'e' && input[4] == 's') {
+            else if (input.front() == 'R' && input[1] == 'u' && input[2] == 'l' && input[3] == 'e' && input[4] == 's'
+                                && (input[5] == ' ' || input[5] == ':'|| input[5] == '\n' || input[5] == '\t')) {
                 type = RULES;
                 value = "Rules";
                 line = currLine;
@@ -131,12 +135,16 @@ Token Scanner::scanToken() {
                 return Token(type, value, line);
             }
             else if (input.front() == '\'') {
+                bool multiLine = false;
                 int i = 1;//STRING
                 string outString;
+                int nine = currLine;
                 do {
                     if(input.front() == '\n'){
-                        outString += "\\n";
+                        outString += "\n";
+                        multiLine = true;
                         i++;
+                        currLine++;
                         input = input.substr(1);
                         if(input.front() == '\000'){break;}
                         continue;
@@ -151,9 +159,10 @@ Token Scanner::scanToken() {
                 if(input.empty()){
                     type = UNDEFINED;
                     value = outString;
-                    line = currLine;
+                    if(multiLine){line = nine;}
+                    else{line = currLine;}
                     input = input.substr(input.length());
-                    if(input.empty()){loopLine = false;}
+                    //if(input.empty()){loopLine = false;}
                     return Token(type, value, line);
                 }
                 type = STRING;
