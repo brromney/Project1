@@ -4,7 +4,7 @@
 using namespace std;
 
 int main(/*int argc, char *argv[]*/) {
-    bool loopLine;
+    //bool loopLine;
     ifstream infile(/*argv[1]*/"C:/Users/blake/Documents/BYU/CS236/Project 1/noErrors.txt");
     string fileString;
     string fileContent;
@@ -25,6 +25,12 @@ int main(/*int argc, char *argv[]*/) {
             cout << t.typeName() << endl;
             tokenCounter++;
         }
+        /* FIXME this is broken
+         do{
+            Token t = s.scanToken();
+            cout << t.typeName() << endl;
+            tokenCounter++;
+        }while(loopLine);*/
     }
     cout << "Total Tokens = " << tokenCounter;
 }
