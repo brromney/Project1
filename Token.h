@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+extern bool loopLine;
 using namespace std;
 
 enum TokenType {

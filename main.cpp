@@ -3,11 +3,12 @@
 #include "Scanner.h"
 using namespace std;
 
-int main() {
-    ifstream infile("C:/Users/blake/Documents/BYU/CS236/Project 1/noErrors.txt");
+int main(/*int argc, char *argv[]*/) {
+    bool loopLine;
+    ifstream infile(/*argv[1]*/"C:/Users/blake/Documents/BYU/CS236/Project 1/noErrors.txt");
     string fileString;
     string fileContent;
-    int tokenCounter;
+    int tokenCounter = 0;
     if(!infile.is_open()){
         cerr << "Could not open/find file" << endl;
     }
@@ -16,7 +17,7 @@ int main() {
             //cout << fileString << endl;
             fileContent += fileString + "\n";
         }
-        cout << fileContent << endl;
+       //cout << fileContent << endl;
         infile.close();
         Scanner s = Scanner(fileContent);
         while(loopLine) {
@@ -25,5 +26,5 @@ int main() {
             tokenCounter++;
         }
     }
-    cout << "Total Tokens = " << tokenCounter - 1;
+    cout << "Total Tokens = " << tokenCounter;
 }

@@ -6,14 +6,13 @@
 #include "iostream"
 #include "Token.h"
 #include "cctype"
-extern bool loopLine;
 using namespace std;
 
 class Scanner {
 private:
     string input;
     TokenType type;
-    int line;
+    int line{};
     string value;
     int currLine = 1;
 

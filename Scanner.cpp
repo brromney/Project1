@@ -3,13 +3,14 @@
 //
 #pragma once
 #include "Scanner.h"
+
+
 bool loopLine = true;
 Token Scanner::scanToken() {
     if(input.empty()){
         type = ENDOFFILE;
         value = "";
         line = currLine;
-        input = input;
         loopLine = false;
     }
     while(!input.empty()) {
@@ -23,7 +24,6 @@ Token Scanner::scanToken() {
             type = ENDOFFILE;
             value = "";
             line = currLine;
-            input = input;
             loopLine = false;
         }
         else if (input.front() == ',') {
@@ -204,5 +204,5 @@ Token Scanner::scanToken() {
         }
     }
     return Token(type,value, line);
-};
+}
 
