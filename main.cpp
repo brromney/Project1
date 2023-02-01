@@ -4,9 +4,10 @@
 using namespace std;
 
 int main() {
-    ifstream infile(R"(C:\Users\blake\Documents\BYU\CS236\Project 1\noErrors.txt)");
+    ifstream infile("C:/Users/blake/Documents/BYU/CS236/Project 1/noErrors.txt");
     string fileString;
     string fileContent;
+    int tokenCounter;
     if(!infile.is_open()){
         cerr << "Could not open/find file" << endl;
     }
@@ -18,9 +19,11 @@ int main() {
         cout << fileContent << endl;
         infile.close();
         Scanner s = Scanner(fileContent);
-        while(s) {
+        while(loopLine) {
             Token t = s.scanToken();
             cout << t.typeName() << endl;
+            tokenCounter++;
         }
     }
+    cout << "Total Tokens = " << tokenCounter - 1;
 }

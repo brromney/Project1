@@ -48,7 +48,7 @@ public:
             strToPrint = "ADD";
         }
         else if (type == SCHEMES){
-            strToPrint = "SCHEME";
+            strToPrint = "SCHEMES";
         }
         else if (type == FACTS){
             strToPrint = "FACTS";

@@ -7,7 +7,7 @@ bool loopLine = true;
 Token Scanner::scanToken() {
     if(input.empty()){
         type = ENDOFFILE;
-        value = "EOF";
+        value = "";
         line = currLine;
         input = input;
         loopLine = false;
@@ -21,7 +21,7 @@ Token Scanner::scanToken() {
         }
         if(input.empty()){
             type = ENDOFFILE;
-            value = "EOF";
+            value = "";
             line = currLine;
             input = input;
             loopLine = false;
@@ -101,7 +101,7 @@ Token Scanner::scanToken() {
         else if (((input.front() >= 'A') && (input.front() <= 'Z')) || ((input.front() >= 'a') && (input.front() <= 'z')) || (input.front() == '\'')){
             if (input.front() == 'S' && input[1] == 'c' && input[2] == 'h' && input[3] == 'e' && input[4] == 'm' && input[5] == 'e' && input[6] == 's') {
                 type = SCHEMES;
-                value = "SCHEMES";
+                value = "Schemes";
                 line = currLine;
                 input = input.substr(7);
                 if(input.empty()){loopLine = false;}
@@ -109,7 +109,7 @@ Token Scanner::scanToken() {
             }
             else if (input.front() == 'F' && input[1] == 'a' && input[2] == 'c' && input[3] == 't' && input[4] == 's' && (input[5] == ' ' || input[5] == ':'|| input[5] == '\n')) {
                 type = FACTS;
-                value = "FACTS";
+                value = "Facts";
                 line = currLine;
                 input = input.substr(5);
                 if(input.empty()){loopLine = false;}
@@ -117,7 +117,7 @@ Token Scanner::scanToken() {
             }
             else if (input.front() == 'Q' && input[1] == 'u' && input[2] == 'e' && input[3] == 'r' && input[4] == 'i' && input[5] == 'e' && input[6] == 's') {
                 type = QUERIES;
-                value = "QUERIES";
+                value = "Queries";
                 line = currLine;
                 input = input.substr(7);
                 if(input.empty()){loopLine = false;}
@@ -125,7 +125,7 @@ Token Scanner::scanToken() {
             }
             else if (input.front() == 'R' && input[1] == 'u' && input[2] == 'l' && input[3] == 'e' && input[4] == 's') {
                 type = RULES;
-                value = "RULES";
+                value = "Rules";
                 line = currLine;
                 input = input.substr(5);
                 if(input.empty()){loopLine = false;}
@@ -134,7 +134,6 @@ Token Scanner::scanToken() {
             else if (input.front() == '\'') {
                 int i = 1;//STRING
                 string outString;
-                //outString = outString + '\'';
                 do {
                     if(input.front() == '\n'){
                         outString += "\\n";
@@ -167,7 +166,7 @@ Token Scanner::scanToken() {
             else {
                 int i = 0;
                 string outID;
-                while((input[i] != ' ' ) && (input[i] != '\n' ) && (input[i] != '\t' )) {
+                while((input[i] != ' ' ) && (input[i] != '\n' ) && (input[i] != '\t' ) && (input[i] != ',' ) && (input[i] != '.' ) && (input[i] != '?' ) && (input[i] != '(' ) && (input[i] != ')' ) && (input[i] != ':' )&& (input[i] != '*' ) && (input[i] != '+' ) && (input[i] != '#' )) {
                     if (!isspace(input[i])) {
                         outID += input[i];
                         i++;
